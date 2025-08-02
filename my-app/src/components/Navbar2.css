@@ -1,0 +1,61 @@
+.koyeb-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 60px;
+  background: transparent;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 20px;
+  color: black;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a {
+  margin-left: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: black;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-links a:hover {
+  color: #333;
+}
+
+.login-link {
+  padding: 6px 12px;
+  border: 1px solid black;
+  border-radius: 6px;
+  font-size: 13px;
+  background: transparent;
+}
+
+.signup-btn {
+  padding: 8px 16px;
+  background-color: black;
+  color: white !important;
+  font-size: 13px;
+  border-radius: 6px;
+  margin-left: 16px;
+  font-weight: 600;
+}
+
+.signup-btn:hover {
+  opacity: 0.9;
+}

@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indian Art Quiz - Discover Traditional Arts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body { 
+      background: linear-gradient(135deg, #fef7cd 0%, #fff4e6 50%, #fef3c7 100%);
+      min-height: 100vh;
+    }
+    
+    .card {
+      transition: all 0s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .card:hover { 
+      transform: translateY(-8px) scale(1.02); 
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 0.95);
+    }
+    
+    .option {
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+      background: rgba(255, 255, 255, 0.8);
+    }
+    
+    .option:hover { 
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border-color: #f59e0b;
+      transform: translateX(4px);
+    }
+    
+    .option.selected { 
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      border-color: #d97706;
+      color: white;
+      font-weight: 500;
+    }
+    
+    .timer {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+      animation: pulse 1s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .timer.warning {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      animation: shake 0.5s infinite;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      75% { transform: translateX(2px); }
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    }
+    
+    .btn-success {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+    
+    .btn-success:hover {
+      background: linear-gradient(135deg, #059669, #047857);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+    }
+    
+    .progress-bar {
+      height: 6px;
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    
+    .quiz-image {
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .quiz-image:hover {
+      transform: scale(1.05);
+    }
+    
+    .personality-result {
+      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+    #music-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background-color: #131212;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    #music-toggle:hover {
+      background-color: #030303;
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .slide-in {
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4">
+  <!-- Header -->
+  <header class="text-center mb-8 fade-in">
+    <h1 class="text-4xl md:text-5xl font-bold text-amber-800 mb-2"><img style="height: 105px;width:105px;border-radius: 50%;margin-left:47.5%;border: #030303;" src="logo.png" />Tradavya Quiz</h1>
+    <p class="text-lg text-amber-700">Discover the rich heritage of traditional Indian arts</p>
+  </header>
+     <button id="music-toggle" title="Toggle Music">🔊</button>
+<audio id="background-music" loop autoplay>
+  <source src="https://www.bensound.com/bensound-music/bensound-creativeminds.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+  <!-- Quiz Type Selection -->
+  <div id="quiz-selector" class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    <div class="card p-6 rounded-2xl shadow-lg">
+      <div class="text-center">
+        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+          <span class="text-2xl">🧠</span>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-3">Knowledge Quiz</h2>
+        <p class="text-gray-600 mb-6 leading-relaxed">Test your knowledge about traditional Indian art forms, their origins, and cultural significance.</p>
+        <button onclick="startQuiz('knowledge')" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105">
+          Start Knowledge Quiz
+        </button>
+      </div>
+    </div>
+
+    <div class="card p-6 rounded-2xl shadow-lg">
+      <div class="text-center">
+        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
+          <span class="text-2xl">✨</span>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-3">Personality Quiz</h2>
+        <p class="text-gray-600 mb-6 leading-relaxed">Discover which traditional art form matches your personality and creative spirit.</p>
+        <button onclick="startQuiz('personality')" class="w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
+          Find Your Art Match
+        </button>
+      </div>
+    </div>
+
+    <div class="card p-6 rounded-2xl shadow-lg">
+      <div class="text-center">
+        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
+          <span class="text-2xl">👁️</span>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-3">Visual Quiz</h2>
+        <p class="text-gray-600 mb-6 leading-relaxed">Identify different art forms through beautiful images and visual recognition.</p>
+        <button onclick="startQuiz('visual')" class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105">
+          Start Visual Challenge
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Container -->
+  <div id="quiz-box" class="hidden max-w-4xl mx-auto">
+    <div class="card p-8 rounded-2xl shadow-xl fade-in">
+      <!-- Progress Bar -->
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-sm font-medium text-gray-600" id="progress-text">Question 1 of 10</span>
+          <span class="text-sm font-medium text-gray-600" id="quiz-type-display"></span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2">
+          <div class="progress-bar h-2 rounded-full" id="progress-bar" style="width: 10%"></div>
+        </div>
+      </div>
+
+      <!-- Timer and Question -->
+      <div class="flex justify-between items-start mb-6">
+        <div class="flex-1">
+          <h3 class="text-2xl font-bold text-gray-800 mb-4" id="question-text"></h3>
+          <div id="question-image" class="hidden mb-4">
+            <img id="quiz-image" class="quiz-image w-full max-w-md mx-auto" alt="Quiz Image">
+          </div>
+        </div>
+        <div class="timer ml-6" id="timer">10</div>
+      </div>
+
+      <!-- Options -->
+      <div id="options" class="space-y-3 mb-8"></div>
+
+      <!-- Navigation Buttons -->
+      <div class="flex justify-center space-x-4">
+        <button onclick="nextQuestion()" class="btn-primary text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300">
+          Next Question
+        </button>
+        <button onclick="submitQuiz()" class="btn-success text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300">
+          Submit Quiz
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Container -->
+  <div id="result-box" class="hidden max-w-6xl mx-auto">
+    <div class="card p-8 rounded-2xl shadow-xl fade-in">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-gray-800 mb-4">🎉 Quiz Complete!</h2>
+        <div id="score-display" class="text-6xl font-bold text-amber-600 mb-2">8/10</div>
+        <p class="text-xl text-gray-600" id="score-text">Great job! You scored 8 out of 10</p>
+      </div>
+
+      <!-- Personality Result (only for personality quiz) -->
+      <div id="personality-result" class="hidden mb-8">
+        <div class="personality-result">
+          <img id="matched-art-image" class="w-48 h-48 mx-auto rounded-full mb-6 shadow-lg" alt="Matched Art">
+          <h3 class="text-2xl font-bold text-gray-800 mb-4" id="matched-art-name">Your Art Match</h3>
+          <p class="text-lg text-gray-600 leading-relaxed" id="matched-art-description">Description of your personality match</p>
+        </div>
+      </div>
+
+      <!-- Answer Review -->
+      <div id="answer-review" class="mb-8">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">📝 Review Your Answers</h3>
+        <div id="answer-key" class="space-y-4"></div>
+      </div>
+
+      <div class="text-center">
+        <button onclick="goHome()" class="bg-gradient-to-r from-amber-500 to-amber-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-amber-600 hover:to-amber-700 transition-all duration-300 transform hover:scale-105">
+          Take Another Quiz
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = {
+      knowledge: [
+        { q: "Which state is famous for Warli art?", o: ["Rajasthan", "Maharashtra", "Kerala", "Assam"], a: 1 },
+        { q: "Madhubani art uses which natural material?", o: ["Charcoal", "Turmeric", "Plant dyes", "Synthetic ink"], a: 2 },
+        { q: "Which state is famous for Madhubani painting?", o: ["Rajasthan", "Bihar", "Odisha", "Karnataka"], a: 1 },
+        { q: "What material is primarily used in Warli painting?", o: ["Cloth and acrylic", "Wall and rice paste", "Canvas and oil", "Paper and ink"], a: 1 },
+        { q: "Which painting style often uses motifs of peacocks and elephants?", o: ["Mughal", "Pattachitra", "Miniature", "Gond"], a: 3 },
+        { q: "Pattachitra painting is native to which Indian state?", o: ["Kerala", "West Bengal", "Odisha", "Punjab"], a: 2 },
+        { q: "Kalamkari is known for which technique?", o: ["Brush and ink", "Block printing", "Hand embroidery", "Pen and natural dye"], a: 3 },
+        { q: "Miniature paintings were patronized by which dynasty?", o: ["Maurya", "Mughal", "Chola", "Gupta"], a: 1 },
+        { q: "Which art form is drawn using fingers, twigs, brushes, nib-pens, and matchsticks?", o: ["Gond", "Kalighat", "Mithila", "Kalamkari"], a: 2 },
+        { q: "Which tribal painting style is known for stick-figure humans and animals?", o: ["Warli", "Gond", "Pattachitra", "Mughal"], a: 0 },
+        { q: "In Kalamkari, what does 'Kalam' mean?", o: ["Ink", "Hand", "Pen", "Design"], a: 2 },
+        { q: "Which Indian art form traditionally adorned temple walls?", o: ["Tanjore painting", "Kalighat painting", "Miniature painting", "Pichwai painting"], a: 0 },
+        { q: "Bharatanatyam originated in which Indian state?", o: ["Kerala", "Tamil Nadu", "Odisha", "Karnataka"], a: 1 },
+        { q: "Kathak is associated with which region?", o: ["North India", "East India", "South India", "Northeast India"], a: 0 },
+        { q: "What dance form uses colorful masks in Sikkim?", o: ["Chhau", "Yakshagana", "Bihu", "Cham"], a: 3 },
+        { q: "Kuchipudi dance originated from which state?", o: ["Telangana", "Andhra Pradesh", "Kerala", "Odisha"], a: 1 },
+        { q: "Which is the classical dance form of Kerala?", o: ["Mohiniyattam", "Manipuri", "Odissi", "Kathakali"], a: 3 },
+        { q: "Blue pottery is a traditional craft of which Indian city?", o: ["Jodhpur", "Varanasi", "Jaipur", "Mysore"], a: 2 },
+        { q: "What is Channapatna famous for?", o: ["Silk sarees", "Wooden toys", "Pottery", "Carpets"], a: 1 },
+        { q: "Phulkari embroidery is traditional to which state?", o: ["Punjab", "Assam", "Bihar", "Maharashtra"], a: 0 },
+        { q: "Which metal is used in Bidriware art?", o: ["Gold", "Zinc", "Brass", "Aluminium"], a: 1 },
+        { q: "Bamboo and cane craft is most commonly found in?", o: ["Punjab", "Nagaland", "Gujarat", "Karnataka"], a: 1 },
+        { q: "Which instrument is key in Hindustani classical music?", o: ["Mridangam", "Tabla", "Kanjira", "Veena"], a: 1 },
+        { q: "Veena is associated with which Indian goddess?", o: ["Lakshmi", "Durga", "Saraswati", "Kali"], a: 2 },
+        { q: "Which form of singing originated in Punjab?", o: ["Ghazal", "Qawwali", "Sufi", "Gurbani Kirtan"], a: 3 },
+        { q: "Santoor is a traditional instrument from?", o: ["Rajasthan", "Maharashtra", "Kashmir", "Odisha"], a: 2 },
+        { q: "What is Dhrupad?", o: ["Folk instrument", "Classical dance", "Oldest form of Hindustani classical music", "Carnatic percussion"], a: 2 },
+        { q: "Which ministry promotes Indian traditional arts?", o: ["Ministry of Education", "Ministry of Culture", "Ministry of Tourism", "Ministry of Textiles"], a: 1 },
+        { q: "Which city is famous for Mysore paintings?", o: ["Bangalore", "Chennai", "Mysore", "Hyderabad"], a: 2 },
+        { q: "The UNESCO recognized Ramlila tradition originates in?", o: ["Gujarat", "Uttar Pradesh", "Punjab", "Rajasthan"], a: 1 }
+      ],
+      
+      personality: [
+        { q: "What type of patterns do you find most appealing?", o: ["Geometric and symmetrical", "Flowing and organic", "Bold and abstract", "Detailed and intricate"], a: -1, type: "single" },
+        { q: "Which colors resonate with you the most?", o: ["Earth tones (browns, ochres)", "Bright and vibrant colors", "Subtle pastels", "Rich jewel tones"], a: -1, type: "single" },
+        { q: "What kind of stories do you prefer?", o: ["Mythological epics", "Folk tales and legends", "Nature and wildlife", "Royal court stories"], a: -1, type: "single" },
+        { q: "How do you approach creativity?", o: ["Methodical and planned", "Spontaneous and free-flowing", "Community-oriented", "Meditative and spiritual"], a: -1, type: "single" },
+        { q: "What materials would you prefer to work with?", o: ["Natural pigments and clay", "Fabric and threads", "Wood and metal", "Paper and ink"], a: -1, type: "single" },
+        { q: "Which setting inspires you most?", o: ["Rural villages", "Royal palaces", "Forest and nature", "Temples and sacred spaces"], a: -1, type: "single" },
+        { q: "What size of artwork appeals to you?", o: ["Large wall murals", "Miniature detailed pieces", "Medium-sized paintings", "Scroll paintings"], a: -1, type: "single" },
+        { q: "Which themes interest you most? (Select all that apply)", o: ["Religious and spiritual", "Daily life and celebrations", "Nature and animals", "Historical events"], a: -1, type: "multiple" },
+        { q: "What kind of artistic community do you prefer?", o: ["Family traditions passed down", "Individual artistic expression", "Tribal community art", "Court patronage system"], a: -1, type: "single" },
+        { q: "Which artistic technique appeals to you?", o: ["Hand-painting with natural brushes", "Block printing and stamps", "Embroidery and needlework", "Metal work and engraving"], a: -1, type: "single" }
+      ],
+      
+      visual: [
+        {
+          type: "image-to-text",
+          q: "Which art form is shown in this image?",
+          img: "https://cdn11.bigcommerce.com/s-x49po/images/stencil/1500x1500/products/130372/297360/handmade%2Fdownscaled%2Fh_o55aaeecwq_2000x2000__44375.1724735529.jpg?c=2?auto=compress&cs=tinysrgb&h=300&w=400",
+          o: ["Madhubani", "Warli", "Gond", "Pattachitra"],
+          a: 0
+        },
+        {
+          type: "image-to-text", 
+          q: "Identify this traditional art style:",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQl5CxeA26R4b5smCKvlNqjiNzqM5SUt7NMg&s?auto=compress&cs=tinysrgb&h=300&w=400",
+          o: ["Kalamkari", "Warli", "Madhubani", "Miniature"],
+          a: 1
+        },
+        {
+          type: "text-to-image",
+          q: "Which image shows Kalamkari art?",
+          optionsImg: [
+            "https://5.imimg.com/data5/UB/IO/MY-22239869/decorative-madhubani-painting-250x250.jpg",
+            "https://5.imimg.com/data5/PK/BA/GH/SELLER-22239869/warli-paintings-250x250.jpg",
+            "https://5.imimg.com/data5/ANDROID/Default/2022/2/FB/PM/NT/7545519/product-jpeg-250x250.jpg",
+            "https://5.imimg.com/data5/LJ/UU/ND/SELLER-22239869/gond-painting-250x250.JPG"
+          ],
+          labels: ["", "", "", ""],
+          a: 2
+        },
+        {
+          type: "image-to-text",
+          q: "This painting style is known for its geometric patterns:",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQl5CxeA26R4b5smCKvlNqjiNzqM5SUt7NMg&s?auto=compress&cs=tinysrgb&h=300&w=400",
+          o: ["Pattachitra", "Gond", "Warli", "Kalamkari"],
+          a: 2
+        },
+        {
+          type: "text-to-image",
+          q: "Select the image that represents Gond art:",
+          optionsImg: [
+            "https://5.imimg.com/data5/LJ/UU/ND/SELLER-22239869/gond-painting-250x250.JPG",
+            "https://5.imimg.com/data5/UB/IO/MY-22239869/decorative-madhubani-painting-250x250.jpg",
+            "https://5.imimg.com/data5/PK/BA/GH/SELLER-22239869/warli-paintings-250x250.jpg",
+            "https://5.imimg.com/data5/ANDROID/Default/2022/2/FB/PM/NT/7545519/product-jpeg-250x250.jpg"
+          ],
+          //labels: ["Gond", "Madhubani", "Warli", "Kalamkari"],
+          labels: ["", "", "", ""],
+          a: 0
+        },
+        {
+          type: "image-to-text",
+          q: "Which art form uses natural dyes on fabric?",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZEbHyRDj6i9GLO3ldR0kd1opqHAJOx7iCNw&s?auto=compress&cs=tinysrgb&h=300&w=400",
+          o: ["Kalamkari", "Phad", "Tanjore", "Gond"],
+          a: 0
+        },
+        {
+          type: "image-to-text",
+          q: "This intricate art style originated in Bihar:",
+          img: "https://cdn11.bigcommerce.com/s-x49po/images/stencil/1500x1500/products/130372/297360/handmade%2Fdownscaled%2Fh_o55aaeecwq_2000x2000__44375.1724735529.jpg?c=2?auto=compress&cs=tinysrgb&h=300&w=400",
+          o: ["Warli", "Madhubani", "Pattachitra", "Kalamkari"],
+          a: 1
+        },
+        {
+          type: "text-to-image",
+          q: "Which image shows traditional Warli painting?",
+          optionsImg: [
+            "https://5.imimg.com/data5/PK/BA/GH/SELLER-22239869/warli-paintings-250x250.jpg",
+            "https://5.imimg.com/data5/UB/IO/MY-22239869/decorative-madhubani-painting-250x250.jpg",
+            "https://5.imimg.com/data5/ANDROID/Default/2022/2/FB/PM/NT/7545519/product-jpeg-250x250.jpg",
+            "https://5.imimg.com/data5/LJ/UU/ND/SELLER-22239869/gond-painting-250x250.JPG"
+          ],
+          //labels: ["Warli", "Madhubani", "Kalamkari", "Gond"],
+          labels: ["", "", "", ""],
+          a: 0
+        },
+        {
+          type: "image-to-text",
+          q: "This tribal art form uses dots and lines:",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcNnxjuaGA5px_-LGDlHOOGYP5ZS_kvSmgNw&s?auto=compress&cs=tinysrgb&h=300&w=400",
+          o: ["Kalamkari", "Gond", "Pattachitra", "Madhubani"],
+          a: 1
+        },
+        {
+          type: "text-to-image",
+          q: "Select the Madhubani painting:",
+          optionsImg: [
+            "https://5.imimg.com/data5/UB/IO/MY-22239869/decorative-madhubani-painting-250x250.jpg",
+            "https://5.imimg.com/data5/PK/BA/GH/SELLER-22239869/warli-paintings-250x250.jpg",
+            "https://5.imimg.com/data5/ANDROID/Default/2022/2/FB/PM/NT/7545519/product-jpeg-250x250.jpg",
+            "https://5.imimg.com/data5/LJ/UU/ND/SELLER-22239869/gond-painting-250x250.JPG"
+          ],
+          //labels: ["Madhubani", "Warli", "Kalamkari", "Gond"],
+          labels: ["", "", "", ""],
+          a: 0
+        },
+        {
+          type: "image-to-text",
+          q: "Which art form is this?",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZEbHyRDj6i9GLO3ldR0kd1opqHAJOx7iCNw&s?auto=compress&cs=tinysrgb&h=300&w=400",
+          o: ["Warli", "Miniature", "Kalamkari", "Batik"],
+          a: 2
+        },
+        {
+          type: "image-to-text",
+          q: "This art style uses rice paste and natural pigments:",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQl5CxeA26R4b5smCKvlNqjiNzqM5SUt7NMg&s?auto=compress&cs=tinysrgb&h=300&w=400",
+          o: ["Madhubani", "Warli", "Pattachitra", "Kalamkari"],
+          a: 1
+        },
+        {
+          type: "text-to-image",
+          q: "Which image represents traditional Indian textile art?",
+          optionsImg: [
+            "https://5.imimg.com/data5/ANDROID/Default/2022/2/FB/PM/NT/7545519/product-jpeg-250x250.jpg",
+            "https://5.imimg.com/data5/UB/IO/MY-22239869/decorative-madhubani-painting-250x250.jpg",
+            "https://5.imimg.com/data5/PK/BA/GH/SELLER-22239869/warli-paintings-250x250.jpg",
+            "https://5.imimg.com/data5/LJ/UU/ND/SELLER-22239869/gond-painting-250x250.JPG"
+          ],
+          //labels: ["Kalamkari", "Madhubani", "Warli", "Gond"],
+          labels: ["", "", "", ""],
+          a: 0
+        },
+        {
+          type: "image-to-text",
+          q: "This art form often depicts tribal life:",
+          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQl5CxeA26R4b5smCKvlNqjiNzqM5SUt7NMg&s?auto=compress&cs=tinysrgb&h=300&w=400",
+          o: ["Warli", "Miniature", "Pattachitra", "Tanjore"],
+          a: 0
+        },
+        {
+          type: "image-to-text",
+          q: "Which traditional art is known for its vibrant colors?",
+          img: "https://cdn11.bigcommerce.com/s-x49po/images/stencil/1500x1500/products/130372/297360/handmade%2Fdownscaled%2Fh_o55aaeecwq_2000x2000__44375.1724735529.jpg?c=2?auto=compress&cs=tinysrgb&h=300&w=400",
+          o: ["Madhubani", "Warli", "Gond", "Kalamkari"],
+          a: 0
+        }
+      ]
+    };
+
+    // Personality quiz art matches
+    const artMatches = {
+      "madhubani": {
+        name: "Madhubani Art",
+        image: "https://5.imimg.com/data5/UB/IO/MY-22239869/decorative-madhubani-painting-250x250.jpg",
+        description: "You have a vibrant and expressive personality! Like Madhubani art, you appreciate rich traditions, love storytelling, and have a deep connection to cultural roots. You're detail-oriented and find beauty in intricate patterns and meaningful symbolism."
+      },
+      "warli": {
+        name: "Warli Art",
+        image: "https://5.imimg.com/data5/PK/BA/GH/SELLER-22239869/warli-paintings-250x250.jpg",
+        description: "You have a simple yet profound approach to life! Like Warli art, you value community, find beauty in everyday moments, and prefer authentic, natural expressions. You're grounded, practical, and believe in the power of storytelling through simple forms."
+      },
+      "gond": {
+        name: "Gond Art",
+        image: "https://5.imimg.com/data5/LJ/UU/ND/SELLER-22239869/gond-painting-250x250.JPG", 
+        description: "You're creative and nature-loving! Like Gond art, you have a unique perspective on the world, love vibrant expressions, and find inspiration in nature and wildlife. You're innovative while respecting traditions and enjoy creating detailed, meaningful work."
+      },
+      "kalamkari": {
+        name: "Kalamkari Art",
+        image: "https://5.imimg.com/data5/ANDROID/Default/2022/2/FB/PM/NT/7545519/product-jpeg-250x250.jpg",
+        description: "You're patient and spiritually inclined! Like Kalamkari art, you appreciate the process as much as the result, have a meditative approach to creativity, and value craftsmanship. You're drawn to stories, mythology, and creating lasting beauty."
+      }
+    };
+
+    let currentType = null;
+    let currentQ = 0;
+    let score = 0;
+    let selected = null;
+    let quizOrder = [];
+    let userAnswers = [];
+    let timerInterval;
+    let personalityAnswers = [];
+
+    function startQuiz(type) {
+      currentType = type;
+      currentQ = 0;
+      score = 0;
+      selected = null;
+      userAnswers = [];
+      personalityAnswers = [];
+      
+      // Randomize questions for knowledge and visual quizzes
+      if (type === 'personality') {
+        quizOrder = [...Array(questions[type].length).keys()];
+      } else {
+        quizOrder = [...Array(questions[type].length).keys()]
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 10);
+      }
+      
+      document.getElementById('quiz-selector').classList.add('hidden');
+      document.getElementById('quiz-box').classList.remove('hidden');
+      document.getElementById('quiz-type-display').textContent = type.charAt(0).toUpperCase() + type.slice(1) + ' Quiz';
+      
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      clearInterval(timerInterval);
+      selected = null;
+      
+      const qObj = questions[currentType][quizOrder[currentQ]];
+      const totalQuestions = currentType === 'personality' ? questions[currentType].length : 10;
+      
+      // Update progress
+      document.getElementById('progress-text').textContent = `Question ${currentQ + 1} of ${totalQuestions}`;
+      const progressPercent = ((currentQ + 1) / totalQuestions) * 100;
+      document.getElementById('progress-bar').style.width = progressPercent + '%';
+      
+      // Set question text
+      document.getElementById('question-text').textContent = qObj.q;
+      
+      // Handle images for visual quiz
+      const questionImage = document.getElementById('question-image');
+      const quizImage = document.getElementById('quiz-image');
+      
+      if (currentType === 'visual' && (qObj.type === 'image-to-text' || qObj.img)) {
+        questionImage.classList.remove('hidden');
+        quizImage.src = qObj.img;
+        quizImage.alt = "Quiz question image";
+      } else {
+        questionImage.classList.add('hidden');
+      }
+      
+      // Create options
+      const optionsDiv = document.getElementById('options');
+      optionsDiv.innerHTML = '';
+      
+      if (currentType === 'visual' && qObj.type === 'text-to-image') {
+        // Image options for text-to-image questions
+        optionsDiv.className = 'grid grid-cols-2 gap-4 mb-8';
+        qObj.optionsImg.forEach((imgSrc, i) => {
+          const optionDiv = document.createElement('div');
+          optionDiv.className = 'option cursor-pointer p-4 rounded-lg text-center';
+          optionDiv.onclick = () => selectOption(i, optionDiv);
+          
+          const img = document.createElement('img');
+          img.src = imgSrc;
+          img.className = 'w-full h-32 object-cover rounded mb-2';
+          img.alt = qObj.labels[i];
+          
+          const label = document.createElement('p');
+          label.textContent = qObj.labels[i];
+          label.className = 'font-medium';
+          
+          optionDiv.appendChild(img);
+          optionDiv.appendChild(label);
+          optionsDiv.appendChild(optionDiv);
+        });
+      } else {
+        // Text options
+        optionsDiv.className = 'space-y-3 mb-8';
+        qObj.o.forEach((opt, i) => {
+          const btn = document.createElement('button');
+          btn.textContent = opt;
+          btn.className = 'option w-full p-4 rounded-lg text-left font-medium';
+          btn.onclick = () => selectOption(i, btn);
+          optionsDiv.appendChild(btn);
+        });
+      }
+      
+      // Start timer (not for personality quiz)
+      if (currentType !== 'personality') {
+        startTimer();
+      } else {
+        document.getElementById('timer').style.display = 'none';
+      }
+    }
+
+    function selectOption(i, element) {
+      selected = i;
+      
+      // Remove selected class from all options
+      [...document.getElementsByClassName('option')].forEach(el => {
+        el.classList.remove('selected');
+      });
+      
+      // Add selected class to clicked option
+      element.classList.add('selected');
+    }
+
+    function startTimer() {
+      let time = 10;
+      const timerEl = document.getElementById('timer');
+      timerEl.style.display = 'flex';
+      timerEl.textContent = time;
+      timerEl.classList.remove('warning');
+      
+      timerInterval = setInterval(() => {
+        time--;
+        timerEl.textContent = time;
+        
+        if (time <= 3) {
+          timerEl.classList.add('warning');
+        }
+        
+        if (time <= 0) {
+          clearInterval(timerInterval);
+          nextQuestion();
+        }
+      }, 1000);
+    }
+
+    function nextQuestion() {
+      clearInterval(timerInterval);
+      
+      const qObj = questions[currentType][quizOrder[currentQ]];
+      
+      if (currentType === 'personality') {
+        // Store personality answers
+        if (selected !== null) {
+          personalityAnswers.push({
+            question: currentQ,
+            answer: selected,
+            type: qObj.type || 'single'
+          });
+        }
+      } else {
+        // Handle knowledge and visual quiz scoring
+        if (selected !== null && selected === qObj.a) {
+          score++;
+        }
+        
+        userAnswers.push({
+          q: qObj.q,
+          options: qObj.o || qObj.labels,
+          correct: qObj.a,
+          selected: selected,
+          img: qObj.img || null
+        });
+      }
+      
+      currentQ++;
+      const totalQuestions = currentType === 'personality' ? questions[currentType].length : 10;
+      
+      if (currentQ < totalQuestions) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function submitQuiz() {
+      clearInterval(timerInterval);
+      
+      if (currentType === 'personality') {
+        // For personality quiz, ensure all questions are answered
+        const totalQuestions = questions[currentType].length;
+        if (personalityAnswers.length < totalQuestions) {
+          alert('Please answer all questions before submitting.');
+          return;
+        }
+      }
+      
+      showResult();
+    }
+
+    function calculatePersonalityMatch() {
+      const scores = {
+        madhubani: 0,
+        warli: 0, 
+        gond: 0,
+        kalamkari: 0
+      };
+      
+      personalityAnswers.forEach(answer => {
+        const questionIndex = answer.question;
+        const selectedOption = answer.answer;
+        
+        // Scoring logic based on question patterns
+        switch(questionIndex) {
+          case 0: // Pattern preference
+            if (selectedOption === 0) scores.warli += 2;
+            if (selectedOption === 1) scores.gond += 2;
+            if (selectedOption === 2) scores.kalamkari += 2;
+            if (selectedOption === 3) scores.madhubani += 2;
+            break;
+          case 1: // Color preference
+            if (selectedOption === 0) scores.warli += 2;
+            if (selectedOption === 1) scores.madhubani += 2;
+            if (selectedOption === 2) scores.kalamkari += 2;
+            if (selectedOption === 3) scores.gond += 2;
+            break;
+          case 2: // Story preference
+            if (selectedOption === 0) scores.kalamkari += 2;
+            if (selectedOption === 1) scores.warli += 2;
+            if (selectedOption === 2) scores.gond += 2;
+            if (selectedOption === 3) scores.madhubani += 2;
+            break;
+          case 3: // Creativity approach
+            if (selectedOption === 0) scores.madhubani += 2;
+            if (selectedOption === 1) scores.gond += 2;
+            if (selectedOption === 2) scores.warli += 2;
+            if (selectedOption === 3) scores.kalamkari += 2;
+            break;
+          case 4: // Material preference
+            if (selectedOption === 0) scores.warli += 2;
+            if (selectedOption === 1) scores.madhubani += 2;
+            if (selectedOption === 2) scores.gond += 2;
+            if (selectedOption === 3) scores.kalamkari += 2;
+            break;
+          case 5: // Setting inspiration
+            if (selectedOption === 0) scores.warli += 2;
+            if (selectedOption === 1) scores.madhubani += 2;
+            if (selectedOption === 2) scores.gond += 2;
+            if (selectedOption === 3) scores.kalamkari += 2;
+            break;
+          case 6: // Artwork size
+            if (selectedOption === 0) scores.warli += 2;
+            if (selectedOption === 1) scores.madhubani += 2;
+            if (selectedOption === 2) scores.gond += 2;
+            if (selectedOption === 3) scores.kalamkari += 2;
+            break;
+          case 7: // Themes (multiple choice)
+            if (selectedOption === 0) scores.kalamkari += 2;
+            if (selectedOption === 1) scores.warli += 2;
+            if (selectedOption === 2) scores.gond += 2;
+            if (selectedOption === 3) scores.madhubani += 2;
+            break;
+          case 8: // Artistic community
+            if (selectedOption === 0) scores.madhubani += 2;
+            if (selectedOption === 1) scores.gond += 2;
+            if (selectedOption === 2) scores.warli += 2;
+            if (selectedOption === 3) scores.kalamkari += 2;
+            break;
+          case 9: // Technique preference
+            if (selectedOption === 0) scores.madhubani += 2;
+            if (selectedOption === 1) scores.warli += 2;
+            if (selectedOption === 2) scores.gond += 2;
+            if (selectedOption === 3) scores.kalamkari += 2;
+            break;
+        }
+      });
+      
+      // Find the art form with highest score
+      let maxScore = 0;
+      let matchedArt = 'madhubani';
+      
+      Object.keys(scores).forEach(art => {
+        if (scores[art] > maxScore) {
+          maxScore = scores[art];
+          matchedArt = art;
+        }
+      });
+      
+      return matchedArt;
+    }
+
+    function showResult() {
+      document.getElementById('quiz-box').classList.add('hidden');
+      document.getElementById('result-box').classList.remove('hidden');
+      
+      if (currentType === 'personality') {
+        // Show personality result
+        const matchedArt = calculatePersonalityMatch();
+        const artInfo = artMatches[matchedArt];
+        
+        document.getElementById('score-display').style.display = 'none';
+        document.getElementById('score-text').textContent = 'Discover your artistic personality match!';
+        
+        const personalityResult = document.getElementById('personality-result');
+        personalityResult.classList.remove('hidden');
+        
+        document.getElementById('matched-art-image').src = artInfo.image;
+        document.getElementById('matched-art-name').textContent = artInfo.name;
+        document.getElementById('matched-art-description').textContent = artInfo.description;
+        
+        // Hide answer review for personality quiz
+        document.getElementById('answer-review').style.display = 'none';
+        
+      } else {
+        // Show knowledge/visual quiz results
+        document.getElementById('score-display').textContent = `${score}/10`;
+        document.getElementById('score-text').textContent = `You scored ${score} out of 10 questions correctly!`;
+        
+        document.getElementById('personality-result').classList.add('hidden');
+        document.getElementById('answer-review').style.display = 'block';
+        
+        // Show answer review
+        const answerKey = document.getElementById('answer-key');
+        answerKey.innerHTML = '';
+        
+        userAnswers.forEach((entry, idx) => {
+          const div = document.createElement('div');
+          div.className = 'bg-gray-50 p-4 rounded-lg border slide-in';
+          div.style.animationDelay = `${idx * 0.1}s`;
+          
+          const isCorrect = entry.correct === entry.selected;
+          const statusIcon = isCorrect ? '✅' : '❌';
+          const statusColor = isCorrect ? 'text-green-600' : 'text-red-500';
+          
+          let imageHtml = '';
+          if (entry.img) {
+            imageHtml = `<img src="${entry.img}" class="w-24 h-24 object-cover rounded mb-2" alt="Question image">`;
+          }
+          
+          div.innerHTML = `
+            <div class="flex items-start space-x-4">
+              ${imageHtml ? `<div class="flex-shrink-0">${imageHtml}</div>` : ''}
+              <div class="flex-1">
+                <div class="flex items-center mb-2">
+                  <span class="text-xl mr-2">${statusIcon}</span>
+                  <strong class="text-gray-800">Q${idx + 1}:</strong>
+                </div>
+                <p class="text-gray-700 mb-2">${entry.q}</p>
+                <p class="text-green-600 font-medium">✓ Correct: ${entry.options[entry.correct]}</p>
+                <p class="${statusColor} font-medium">
+                  ${entry.selected >= 0 ? `Your Answer: ${entry.options[entry.selected]}` : 'Your Answer: Not answered'}
+                </p>
+              </div>
+            </div>
+          `;
+          
+          answerKey.appendChild(div);
+        });
+      }
+    }
+
+    function goHome() {
+      document.getElementById('result-box').classList.add('hidden');
+      document.getElementById('quiz-selector').classList.remove('hidden');
+      
+      // Reset quiz state
+      currentType = null;
+      currentQ = 0;
+      score = 0;
+      selected = null;
+      quizOrder = [];
+      userAnswers = [];
+      personalityAnswers = [];
+      clearInterval(timerInterval);
+    }
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add some entrance animations
+      const cards = document.querySelectorAll('.card');
+      cards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.2}s`;
+        card.classList.add('fade-in');
+      });
+    });
+
+  //   <!-- Background Music -->
+
+
+
+  // const bgMusic = document.getElementById("background-music");
+
+  // // Start music when user interacts (required by many browsers)
+  // document.addEventListener("click", () => {
+  //   if (bgMusic.paused) {
+  //     bgMusic.play().catch(err => console.warn("Autoplay blocked:", err));
+  //   }
+  // }, { once: true });
+
+  // // Toggle music with 'M' key
+  // document.addEventListener("keydown", function(e) {
+  //   if (e.key.toLowerCase() === 'm') {
+  //     if (bgMusic.muted || bgMusic.paused) {
+  //       bgMusic.muted = false;
+  //       bgMusic.play();
+  //       console.log("🎵 Music resumed");
+  //     } else {
+  //       bgMusic.muted = true;
+  //       bgMusic.pause();
+  //       console.log("🔇 Music muted");
+  //     }
+  //   }
+  // });
+
+
+  const bgMusic = document.getElementById("background-music");
+    const toggleBtn = document.getElementById("music-toggle");
+
+    // Start music on first click (to comply with autoplay policies)
+    document.addEventListener("click", () => {
+      if (bgMusic.paused) {
+        bgMusic.play().catch(err => console.warn("Autoplay blocked:", err));
+      }
+    }, { once: true });
+
+    function toggleMusic() {
+      if (bgMusic.muted || bgMusic.paused) {
+        bgMusic.muted = false;
+        bgMusic.play();
+        toggleBtn.textContent = "🔊 Music";
+        console.log("🎵 Music resumed");
+      } else {
+        bgMusic.muted = true;
+        bgMusic.pause();
+        toggleBtn.textContent = "🔇Music";
+        console.log("🔇 Music muted");
+      }
+    }
+
+    toggleBtn.addEventListener("click", toggleMusic);
+
+    // Toggle music with 'M' key
+    document.addEventListener("keydown", function(e) {
+      if (e.key.toLowerCase() === 'm') {
+        toggleMusic();
+      }
+    });
+</script>
+
+
+</body>
+</html>

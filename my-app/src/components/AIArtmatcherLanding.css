@@ -1,0 +1,129 @@
+/* Homepage.css */
+
+.homepage {
+  font-family: "Segoe UI", sans-serif;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(to right, #ffefba, #ffffff);
+  border-radius: 12px;
+  margin-bottom: 3rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.cta-buttons button {
+  margin: 0 1rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: #5c6bc0;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cta-buttons button:hover {
+  background-color: #3f51b5;
+}
+
+/* Featured Collections */
+.collections {
+  margin-bottom: 3rem;
+}
+
+.collection-grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.collection-item {
+  background-color: #fff;
+  padding: 1rem;
+  flex: 1 1 30%;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.collection-item:hover {
+  transform: scale(1.05);
+}
+
+/* Explore by Region */
+.regions {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background-color: #e3f2fd;
+  border-radius: 12px;
+}
+
+/* Learn & Engage */
+.engage {
+  margin-bottom: 3rem;
+}
+
+.engage ul {
+  list-style-type: disc;
+  margin-left: 2rem;
+}
+
+/* Newsletter Signup */
+.newsletter {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.newsletter input {
+  padding: 0.5rem;
+  margin-right: 1rem;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.newsletter button {
+  padding: 0.5rem 1.2rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Social Section */
+.social {
+  padding: 2rem;
+  background-color: #fce4ec;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.social-buttons button {
+  margin: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #e91e63;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

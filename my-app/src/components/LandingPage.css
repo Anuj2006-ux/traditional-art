@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+.landing-root {
+  min-height: 100vh;
+  position: relative;
+  font-family: 'Montserrat', Arial, sans-serif;
+  background: url('https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.landing-root:before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.08);
+  backdrop-filter: blur(2px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+header {
+  width: 100%;
+  padding: 36px 0 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  z-index: 2;
+}
+
+.nav-menu {
+  margin: 0;
+  padding: 0 48px 0 0;
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+  gap: 36px;
+}
+
+.nav-menu li a {
+  text-decoration: none;
+  color: #222;
+  font-size: 1.18rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-menu li a:hover {
+  color: #111;
+  text-decoration: underline;
+}
+
+.hero {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content {
+  text-align: center;
+  color: #111;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  font-size: 5rem;
+  font-weight: 700;
+  margin: 0 0 18px 0;
+  letter-spacing: 2px;
+}
+
+.hero-content h2 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin: 0 0 32px 0;
+}
+
+.explore-btn {
+  background: transparent;
+  border: 2px solid #111;
+  border-radius: 28px;
+  font-size: 1.3rem;
+  padding: 10px 36px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+.explore-btn:hover {
+  background: #111;
+  color: #fff;
+}
+
+.subtext {
+  margin-top: 16px;
+  font-size: 1rem;
+  color: #222;
+  opacity: 0.8;
+}
+
+@media (max-width: 700px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  .hero-content h2 {
+    font-size: 1.2rem;
+  }
+  .nav-menu {
+    gap: 18px;
+    padding-right: 12px;
+  }
+}

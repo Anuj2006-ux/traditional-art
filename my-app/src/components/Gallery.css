@@ -1,0 +1,97 @@
+.gallery-section {
+  padding: 40px 24px;
+  background: #fafbfc;
+  min-height: 100vh;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 38px;
+  margin-top: 24px;
+}
+.gallery-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+.gallery-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  transform: scale(1.04);
+  z-index: 2;
+}
+.gallery-image {
+  width: 100%;
+  height: 290px;
+  object-fit: cover;
+  display: block;
+}
+.gallery-info {
+  padding: 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.gallery-item-title {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.gallery-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.98rem;
+}
+.gallery-author {
+  color: #888;
+}
+.gallery-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.like-btn {
+  background: none;
+  border: none;
+  color: #d23f57;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  outline: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.like-btn:active {
+  transform: scale(1.1);
+}
+.views {
+  color: #555;
+  font-size: 0.98rem;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+@media (max-width: 1100px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gallery-image {
+    height: 220px;
+  }
+}
+@media (max-width: 700px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  .gallery-image {
+    height: 170px;
+  }
+}

@@ -1,0 +1,106 @@
+.artmatcher-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 32px 24px;
+  background: #fff9f3;
+  border-radius: 15px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.09);
+}
+
+.main-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.7rem;
+  color: #9d5600;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.subtitle {
+  color: #4c3e23;
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.matcher-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
+  gap: 10px;
+}
+
+.caption-input {
+  width: 100%;
+  max-width: 520px;
+  min-width: 250px;
+  font-size: 1.1rem;
+  padding: 10px;
+  border-radius: 7px;
+  border: 1px solid #e2d3c4;
+  background: #fffdf9;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  resize: vertical;
+}
+
+.match-btn {
+  background: linear-gradient(90deg,#fbb034 0,#ffdd00 100%);
+  color: #232323;
+  font-weight: bold;
+  padding: 10px 32px;
+  border: none;
+  border-radius: 7px;
+  font-size: 1.15rem;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.match-btn:disabled {
+  background: #eee;
+  color: #bbb;
+  cursor: not-allowed;
+}
+
+.results-row {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 9px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 22px;
+  min-width: 250px;
+  max-width: 320px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preview-img {
+  max-width: 220px;
+  max-height: 220px;
+  border-radius: 8px;
+  margin: 16px 0;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.10);
+  background: #faf8f5;
+}
+
+.art-info {
+  margin-bottom: 8px;
+  color: #5d4a1c;
+  font-size: 1rem;
+}
+
+.no-results {
+  margin-top: 20px;
+  color: #aa7b2a;
+  font-size: 1.15rem;
+  text-align: center;
+  width: 100%;
+}

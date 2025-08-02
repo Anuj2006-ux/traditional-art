@@ -1,0 +1,243 @@
+.shopping-page {
+  padding: 2rem 0;
+  min-height: 70vh;
+  background:url('https://static.vecteezy.com/system/resources/thumbnails/001/401/677/small_2x/abstract-polygonal-shape-black-background-free-vector.jpg');
+  position: relative;
+  top: 75px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 2.2rem 2.2rem;
+  margin: 0 auto;
+  max-width: 1100px;
+  width: 96%;
+  min-height: 340px;
+}
+
+@media (max-width: 900px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.art-card {
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 2px 20px 0 #0001;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+
+.art-card:hover {
+  box-shadow: 0 5px 24px 0 #0002;
+  transform: translateY(-4px) scale(1.025);
+}
+
+.art-image-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.art-image {
+  max-width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 14px 0 #0002;
+  transition: transform 0.2s;
+}
+
+.art-info h3 {
+  margin: 0.3rem 0 0.6rem 0;
+  font-size: 1.12rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.art-info p {
+  margin: 0.12rem 0;
+  font-size: 0.96rem;
+  text-align: center;
+}
+
+.price {
+  color: #f4b400;
+  font-size: 1.09rem;
+  font-weight: bold;
+  margin-top: 0.4rem;
+}
+
+.button-group-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.buy-btn, .btn2, .close-btn {
+  background: #ffd700;
+  color: #222;
+  border: none;
+  border-radius: 24px;
+  padding: 0.7rem 2.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0.4rem 0.2rem;
+  transition: background 0.18s, color 0.15s;
+  display: inline-block;
+}
+
+.btn2 {
+  background: #eee;
+  color: #222;
+  border: 1px solid #aaa;
+}
+
+.buy-btn:hover, .btn2:hover {
+  background: #222;
+  color: #ffd700;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.4rem;
+  color: #888;
+  padding: 2rem 0;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.1rem;
+  margin: 2.2rem 0 0.9rem 0;
+}
+
+.pagination button {
+  background: #fff;
+  color: #222;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 0.45rem 1.3rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.pagination button:disabled {
+  background: #eee;
+  color: #bbb;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: rgba(25,25,30,0.35);
+  z-index: 3003;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 7px 40px 0 #0004;
+  padding: 1.8rem 2.2rem;
+  max-width: 780px;
+  width: 92vw;
+  display: flex;
+  gap: 2.2rem;
+  position: relative;
+  animation: modalShow 0.19s cubic-bezier(.4,2,.6,1);
+}
+@keyframes modalShow {
+  from { opacity: 0; transform: scale(0.85);}
+  to   { opacity: 1; transform: scale(1);}
+}
+.modal-left {
+  flex: 1 1 48%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.modal-right {
+  flex: 1 1 52%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.modal-image-wrapper {
+  cursor: zoom-in;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background: #f9f9f9;
+}
+.modal-image-feature {
+  max-width: 350px;
+  max-height: 420px;
+  width: 100%;
+  border-radius: 12px;
+  transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+}
+.modal-image-wrapper.zoomed .modal-image-feature.zoomed {
+  transform: scale(1.7);
+  cursor: zoom-out;
+}
+.zoom-indicator {
+  position: absolute;
+  bottom: 7px;
+  right: 18px;
+  font-size: 1.2rem;
+  background: #fff8;
+  padding: 0.2em 0.7em;
+  border-radius: 9px;
+  pointer-events: none;
+}
+.price-big {
+  color: #f4b400;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0.7rem 0;
+}
+.close-btn {
+  background: #ffe7e7;
+  color: #d12c2c;
+  margin-left: 0.75rem;
+  border: 1.5px solid #d12c2c;
+}
+.close-btn:hover {
+  background: #d12c2c;
+  color: #fff;
+}
+.zoom-hint {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 0.7rem;
+  text-align: left;
+}

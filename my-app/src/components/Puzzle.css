@@ -1,0 +1,31 @@
+.puzzle-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.puzzle-title {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.puzzle-subtitle {
+  font-size: 1em;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.puzzle-message {
+  margin-top: 20px;
+  font-size: 1.2em;
+  color: green;
+}
+
+.puzzle-grid {
+  margin: 0 auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.puzzle-piece {
+  transition: transform 0.2s;
+}

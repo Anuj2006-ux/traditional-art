@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:600&display=swap');
+
+.supportcenter-root {
+  background: #f7f9f7;
+  min-height: 100vh;
+  font-family: 'Roboto',sans-serif;
+}
+
+.supportcenter-header {
+  background: #d9e4de;
+  padding-bottom: 2.5rem;
+}
+
+.supportcenter-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 3.5vw 0.7rem 3.5vw;
+  background: transparent;
+}
+
+.supportcenter-logo {
+  font-size: 1.5rem;
+  color: #173620;
+  font-family: 'Playfair Display', serif;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.supportcenter-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.supportcenter-links a {
+  text-decoration: none;
+  color: #173620;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+.supportcenter-links a:hover {
+  color: #2b6d36;
+}
+.supportcenter-signin-btn {
+  margin-left: 1.5rem;
+  background: #fff;
+  color: #2b6d36;
+  border: 1.5px solid #2b6d36;
+  border-radius: 5px;
+  font-weight: 600;
+  padding: 0.36rem 1.1rem;
+  cursor: pointer;
+  transition: background .18s, color .18s;
+}
+.supportcenter-signin-btn:hover {
+  background: #2b6d36;
+  color: #fff;
+}
+.supportcenter-lang {
+  margin-left: 1.1rem;
+  border: 1px solid #d1d1d1;
+  padding: 0.22rem 0.7rem;
+  border-radius: 4px;
+  background: #f7f9f7;
+  font-size: 1rem;
+  color: #173620;
+}
+
+.supportcenter-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3.5rem;
+}
+.supportcenter-hero h1 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 1.6rem;
+  font-family: 'Playfair Display', serif;
+}
+.supportcenter-searchbar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #c9d6cf2a;
+  padding: 0.5rem 1rem;
+  width: 360px;
+  max-width: 92vw;
+}
+.supportcenter-searchbar input {
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  background: transparent;
+  flex: 1;
+  padding: 0.5rem 0;
+}
+.supportcenter-searchbar button {
+  background: none;
+  border: none;
+  color: #2b6d36;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.supportcenter-main {
+  padding: 2.5rem 3vw 3rem 3vw;
+}
+
+.supportcenter-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 2rem;
+  max-width: 1050px;
+  margin: 0 auto;
+  margin-top: 1.5rem;
+}
+.supportcenter-category-card {
+  background: #fafaf8;
+  border-radius: 16px;
+  box-shadow: 0 1.5px 8px #bcc7c21a;
+  padding: 2.1rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+  min-height: 120px;
+  cursor: pointer;
+  border: 1.5px solid #e0e6e0;
+  transition: box-shadow 0.18s, border 0.13s;
+}
+.supportcenter-category-card:hover {
+  box-shadow: 0 4px 16px #bcd6b31a;
+  border: 1.5px solid #88b790;
+  background: #f3f8f3;
+}
+.supportcenter-category-icon {
+  font-size: 2.1rem;
+  color: #2b6d36;
+  margin-top: 0.2rem;
+  width: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.supportcenter-category-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.28rem;
+  font-family: 'Roboto', sans-serif;
+}
+.supportcenter-category-desc {
+  font-size: 1rem;
+  color: #667772;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
+/* Popup Overlay and Box */
+.supportcenter-popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(30,40,32,0.36);
+  z-index: 1005;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: popupFadeIn 0.2s;
+}
+@keyframes popupFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 70% of screen for large popup */
+.supportcenter-popup.supportcenter-popup-large {
+  min-width: 340px;
+  width: 70vw;
+  max-width: 1100px;
+  min-height: 340px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 22px;
+  padding: 2.9rem 2.9rem 2.2rem 2.9rem;
+  box-shadow: 0 8px 38px #00000029;
+  position: relative;
+  animation: popupScaleIn 0.14s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@keyframes popupScaleIn {
+  from { transform: scale(0.92); }
+  to { transform: scale(1); }
+}
+.supportcenter-popup-close {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  border: none;
+  background: none;
+  font-size: 2rem;
+  color: #555;
+  cursor: pointer;
+  z-index: 2;
+}
+.supportcenter-popup-imgbox {
+  width: 100%;
+  max-height: 280px;
+  overflow: hidden;
+  border-radius: 14px;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.supportcenter-popup-imgbox img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  max-height: 280px;
+  min-height: 140px;
+  box-shadow: 0 2px 16px #0001;
+}
+.supportcenter-popup-title-large {
+  font-size: 2.6rem;
+  font-family: 'Playfair Display', serif;
+  color: #2b6d36;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+.supportcenter-popup-text-large {
+  font-size: 1.55rem;
+  color: #232;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  line-height: 1.8;
+  max-width: 820px;
+  margin: 0 auto;
+  font-weight: 500;
+}
+@media (max-width: 1100px) {
+  .supportcenter-popup.supportcenter-popup-large {
+    width: 94vw;
+    padding: 1.2rem 0.6rem 1.3rem 0.6rem;
+  }
+  .supportcenter-popup-title-large {
+    font-size: 1.7rem;
+  }
+  .supportcenter-popup-text-large {
+    font-size: 1.08rem;
+  }
+}
+@media (max-width: 700px) {
+  .supportcenter-hero h1 {
+    font-size: 2rem;
+  }
+  .supportcenter-main {
+    padding: 1.2rem 2vw 2rem 2vw;
+  }
+  .supportcenter-searchbar {
+    width: 98vw;
+    max-width: 98vw;
+  }
+  .supportcenter-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.1rem 1vw 0.7rem 1vw;
+  }
+  .supportcenter-links {
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.97rem;
+  }
+}

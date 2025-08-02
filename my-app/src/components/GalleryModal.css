@@ -1,0 +1,167 @@
+.gallery-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-modal {
+  background: #fff;
+  border-radius: 18px;
+  max-width: 900px;
+  width: 96vw;
+  max-height: 95vh;
+  overflow-y: auto;
+  box-shadow: 0 0 60px rgba(0,0,0,0.15);
+  position: relative;
+  padding: 36px 32px 24px 32px;
+  animation: modalPop 0.2s cubic-bezier(.58,.93,.38,1.11);
+}
+@keyframes modalPop {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #222;
+  cursor: pointer;
+  z-index: 2;
+}
+.gallery-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+.gallery-modal-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+.gallery-modal-author {
+  font-size: 1rem;
+  color: #888;
+}
+.gallery-modal-image-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.gallery-modal-image {
+  max-width: 700px;
+  width: 80vw;
+  max-height: 420px;
+  border-radius: 12px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+  object-fit: contain;
+}
+.arrow-btn {
+  background: #fff;
+  border: none;
+  font-size: 2rem;
+  color: #222;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 40px; height: 40px;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.12);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  opacity: 0.85;
+}
+.arrow-btn.left {
+  left: -48px;
+}
+.arrow-btn.right {
+  right: -48px;
+}
+.gallery-modal-actions {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.like-btn, .download-btn {
+  background: #eee;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  color: #222;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+.like-btn:hover, .download-btn:hover {
+  background: #d23f57;
+  color: #fff;
+}
+.gallery-modal-comments {
+  background: #f2f3f7;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.gallery-modal-comments h4 {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.comments-list {
+  margin-bottom: 10px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+.comment-item {
+  padding: 6px 0;
+  border-bottom: 1px solid #dedede;
+  font-size: 0.96rem;
+}
+.comment-form {
+  display: flex;
+  gap: 8px;
+}
+.comment-form input {
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 1rem;
+  flex: 1;
+}
+.comment-form button {
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+.comment-form button:hover {
+  background: #d23f57;
+}
+@media (max-width: 900px) {
+  .gallery-modal-image {
+    max-width: 96vw;
+    max-height: 250px;
+  }
+  .arrow-btn.left {
+    left: -22px;
+  }
+  .arrow-btn.right {
+    right: -22px;
+  }
+}

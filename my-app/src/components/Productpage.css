@@ -1,0 +1,30 @@
+.detail-container {
+  display: flex;
+  padding: 40px;
+  gap: 40px;
+}
+
+.detail-left {
+  flex: 1;
+}
+
+.detail-image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.thumbnail-row {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.thumbnail {
+  width: 60px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.detail-right {
+  flex: 1;
+}
